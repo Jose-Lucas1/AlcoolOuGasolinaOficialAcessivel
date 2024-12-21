@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    <style name="Theme.AlcoolOuGasolinaOficial" parent="android:Theme.Material.Light.NoActionBar" />
+ -->
+    <!--
+    <style name="Theme.AlcoolOuGasolinaOficial" parent="Theme.AppCompat.DayNight">
+
+         Customize your theme
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+
+    </style>
+    -->
+
+    <style name="Theme.AlcoolOuGasolinaOficial" parent="Theme.MaterialComponents.DayNight">
+        <!-- Enable Force Dark Mode globally -->
+        
+    </style>
+
+</resources>
