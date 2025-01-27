@@ -17,10 +17,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.text
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,11 +138,41 @@ fun FuelCalculatorApp() {
 }
 
 @Composable
-fun FuelInputField(label: String, value: String, onValueChange: (String) -> Unit) {
+fun FuelInputField(label: String, value: String, onValueChange: (String) -> Unit
+                   ) {
+    Column {
+        Text(text = label, color = Color.White)
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFF004D40), shape = MaterialTheme.shapes.small)
+                .padding(8.dp)
+        ) {
+            BasicTextField(
+                value = value,
+                onValueChange = onValueChange,
+                textStyle = TextStyle(fontSize = 16.sp, color = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clearAndSetSemantics {
+                        contentDescription = if (value.isEmpty()) {
+                            "Campo vazio, digite o $label"
+                        } else {
+                            "$label: $value"
+                        }
+                        text = AnnotatedString("") // Evita que o TalkBack fale "Caixa de edição"
+                    } // Remove as semânticas padrão do campo de edição
+            )
+        }
+    }
+    /*
     Column {
         Text(text = label, color = Color.White)
         Spacer(modifier = Modifier.height(8.dp))
         BasicTextField(
+
             value = value,
             onValueChange = onValueChange,
             textStyle = TextStyle(fontSize = 16.sp, color = Color.White),
@@ -141,8 +180,15 @@ fun FuelInputField(label: String, value: String, onValueChange: (String) -> Unit
                 .fillMaxWidth()
                 .background(Color(0xFF004D40), shape = MaterialTheme.shapes.small)
                 .padding(8.dp)
+
+                /*
+                .semantics { contentDescription = if (value.length == 0) {
+                    "Campo vazio, digite o $label"
+                } else {
+                    "$label: $value"
+                }}*/
         )
-    }
+    }*/
 }
 
 @Preview(showBackground = true)
